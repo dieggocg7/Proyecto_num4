@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Circuitos Eléctricos - Grupo 6IM7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header" id="main-header">
+        <div class="header-toggle">
+            <button id="header-toggle-btn" class="toggle-btn" title="Expandir/Contraer Header">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+        
+        <div class="header-content" id="header-content">
+            <div class="title-section">
+                <h1><i class="fas fa-microchip"></i> Simulador de Circuitos Eléctricos</h1>
+                <p class="subtitle">Análisis Interactivo de Circuitos - Proyecto Académico</p>
+            </div>
+            <div class="group-info">
+                <div class="group-badge">
+                    <span class="group-number">Grupo 6IM7</span>
+                </div>
+                <div class="team-members">
+                    <h3><i class="fas fa-users"></i> Integrantes del Equipo</h3>
+                    <ul class="members-list">
+                        <li><i class="fas fa-user-graduate"></i> Contreras González Diego Alejandro</li>
+                        <li><i class="fas fa-user-graduate"></i> González Ximena</li>
+                        <li><i class="fas fa-user-graduate"></i> Huitzil Cruz Omar Alejandro</li>
+                        <li><i class="fas fa-user-graduate"></i> Romero Hernández Leonardo</li>
+                        <li><i class="fas fa-user-graduate"></i> Romero López Víctor Tonatiuh</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Header compacto cuando está colapsado -->
+        <div class="header-compact" id="header-compact">
+            <div class="compact-title">
+                <i class="fas fa-microchip"></i>
+                <span>Simulador de Circuitos</span>
+                <div class="compact-group">6IM7</div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <button id="btn-serie-paralelo" class="nav-btn active">
+                <i class="fas fa-project-diagram"></i>
+                <span>Constructor de Circuitos</span>
+            </button>
+            <button id="btn-kirchhoff" class="nav-btn">
+                <i class="fas fa-network-wired"></i>
+                <span>Leyes de Kirchhoff</span>
+            </button>
+            <button id="btn-wheatstone" class="nav-btn">
+                <i class="fas fa-bridge"></i>
+                <span>Puente de Wheatstone</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Sección Constructor de Circuitos -->
+        <section id="serie-paralelo" class="section active">
+            <div class="section-header">
+                <h2><i class="fas fa-tools"></i> Constructor de Circuitos Interactivo</h2>
+                <p>Diseña y analiza circuitos eléctricos con detección automática de topología</p>
+            </div>
+            
+            <div class="workspace-container">
+                <!-- Panel de Control -->
+                <div class="control-panel">
+                    <div class="panel-section">
+                        <h3><i class="fas fa-cube"></i> Componentes Disponibles</h3>
+                        <div class="component-list">
+                            <div class="component-card" draggable="true" data-type="resistor">
+                                <div class="component-icon">
+                                    <i class="fas fa-minus" style="color: #8B4513; font-size: 2rem;"></i>
+                                </div>
+                                <div class="component-info">
+                                    <span class="component-name">Resistor</span>
+                                    <small class="component-desc">Elemento resistivo</small>
+                                    <span class="component-value">100 Ω</span>
+                                </div>
+                            </div>
+                            
+                            <div class="component-card" draggable="true" data-type="voltage">
+                                <div class="component-icon">
+                                    <i class="fas fa-battery-full" style="color: #9C27B0; font-size: 2rem;"></i>
+                                </div>
+                                <div class="component-info">
+                                    <span class="component-name">Fuente de Voltaje</span>
+                                    <small class="component-desc">Fuente de alimentación</small>
+                                    <span class="component-value">12 V</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section">
+                        <h3><i class="fas fa-cogs"></i> Configuración</h3>
+                        <div class="setting-group">
+                            <label for="voltage-value">
+                                <i class="fas fa-bolt"></i> Voltaje de la Fuente
+                            </label>
+                            <div class="input-group">
+                                <input type="number" id="voltage-value" value="12" min="0" max="100" class="modern-input">
+                                <span class="input-unit">V</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detection-panel">
+                            <h4><i class="fas fa-brain"></i> Análisis Automático</h4>
+                            <div class="detection-grid">
+                                <div class="detection-item">
+                                    <span class="detection-label">Tipo de Circuito:</span>
+                                    <span id="circuit-type" class="detection-value">Sin componentes</span>
+                                </div>
+                                <div class="detection-item">
+                                    <span class="detection-label">Componentes:</span>
+                                    <span id="component-count" class="detection-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="calculate-btn" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i> Analizar Circuito
+                            </button>
+                            <button id="reset-btn" class="btn btn-secondary">
+                                <i class="fas fa-trash-alt"></i> Limpiar Todo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Área de Trabajo -->
+                <div class="workspace">
+                    <div class="workspace-header">
+                        <h3><i class="fas fa-drafting-compass"></i> Área de Diseño</h3>
+                        <div class="workspace-status">
+                            <span id="connection-status" class="status-text">
+                                <i class="fas fa-info-circle"></i> Arrastra componentes aquí
+                            </span>
+                        </div>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="circuit-canvas" width="800" height="500"></canvas>
+                        <div class="canvas-instructions">
+                            <div class="instructions-content">
+                                <i class="fas fa-hand-pointer"></i>
+                                <h4>Instrucciones</h4>
+                                <p>1. Arrastra componentes desde el panel izquierdo</p>
+                                <p>2. Haz clic en un componente para editarlo</p>
+                                <p>3. Mueve componentes para cambiar la topología</p>
+                                <small>El sistema detecta automáticamente serie/paralelo</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Panel de Propiedades -->
+                    <div id="component-properties" class="properties-panel hidden">
+                        <h4><i class="fas fa-sliders-h"></i> Propiedades del Componente</h4>
+                        <div class="component-info-display">
+                            <div class="info-item">
+                                <span class="info-label">Tipo:</span>
+                                <span id="component-type-display">Componente</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">ID:</span>
+                                <span id="component-id-display">#001</span>
+                            </div>
+                        </div>
+                        <div class="property-group">
+                            <label for="component-value">Valor del Componente:</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="component-value" value="100" min="1" max="10000">
+                                <span id="component-unit">Ω</span>
+                            </div>
+                        </div>
+                        <div class="property-actions">
+                            <button id="apply-properties" class="btn btn-success">
+                                <i class="fas fa-check"></i> Aplicar
+                            </button>
+                            <button id="delete-component" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel de Resultados -->
+            <div class="results-container">
+                <div class="results-panel">
+                    <h2><i class="fas fa-chart-line"></i> Resultados del Análisis</h2>
+                    <div class="results-grid">
+                        <div class="result-card resistance">
+                            <div class="result-icon">
+                                <i class="fas fa-resistor"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Resistencia Total</span>
+                                <span class="result-value" id="total-resistance">0 Ω</span>
+                                <span class="result-formula">R<sub>total</sub></span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card current">
+                            <div class="result-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Corriente Total</span>
+                                <span class="result-value" id="total-current">0 A</span>
+                                <span class="result-formula">I = V/R</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card power">
+                            <div class="result-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="result-content">
+                                <span class="result-label">Potencia Total</span>
+                                <span class="result-value" id="total-power">0 W</span>
+                                <span class="result-formula">P = V×I</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h3><i class="fas fa-microscope"></i> Análisis Detallado</h3>
+                        <div id="detailed-analysis" class="analysis-content">
+                            <div class="analysis-placeholder">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Agrega componentes para ver el análisis detallado del circuito</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="diagram-panel">
+                    <h3><i class="fas fa-sitemap"></i> Diagrama Esquemático</h3>
+                    <div class="diagram-container">
+                        <canvas id="diagram-canvas" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="formula-section">
+                        <h4><i class="fas fa-calculator"></i> Fórmulas Aplicadas</h4>
+                        <div class="formula-list">
+                            <div class="formula-item">
+                                <strong>Ley de Ohm:</strong> V = I × R
+                            </div>
+                            <div class="formula-item">
+                                <strong>Potencia:</strong> P = V × I
+                            </div>
+                            <div class="formula-item" id="resistance-formula">
+                                <strong>Resistencia:</strong> Depende del tipo de circuito
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Leyes de Kirchhoff -->
+        <section id="kirchhoff" class="section hidden">
+            <div class="section-header">
+                <h2><i class="fas fa-network-wired"></i> Leyes de Kirchhoff</h2>
+                <p>Análisis de circuitos complejos mediante las leyes fundamentales de Kirchhoff</p>
+            </div>
+            
+            <div class="kirchhoff-container">
+                <div class="theory-panel">
+                    <h3><i class="fas fa-book"></i> Fundamentos Teóricos</h3>
+                    <div class="law-card">
+                        <div class="law-header">
+                            <i class="fas fa-arrow-right"></i>
+                            <h4>Ley de Corrientes de Kirchhoff (LCK)</h4>
+                        </div>
+                        <p>La suma algebraica de las corrientes que entran a un nodo es igual a la suma de las corrientes que salen del nodo.</p>
+                        <div class="formula-box">
+                            ∑I<sub>entrada</sub> = ∑I<sub>salida</sub>
+                        </div>
+                    </div>
+                    
+                    <div class="law-card">
+                        <div class="law-header">
+                            <i class="fas fa-circle-notch"></i>
+                            <h4>Ley de Voltajes de Kirchhoff (LVK)</h4>
+                        </div>
+                        <p>La suma algebraica de las diferencias de potencial en cualquier trayectoria cerrada (malla) es igual a cero.</p>
+                        <div class="formula-box">
+                            ∑V = 0
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="simulation-panel">
+                    <h3><i class="fas fa-project-diagram"></i> Circuito de Ejemplo</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="kirchhoff-canvas" width="600" height="400"></canvas>
+                    </div>
+                    <div class="simulation-controls">
+                        <button id="solve-kirchhoff" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Resolver Circuito
+                        </button>
+                        <button id="reset-kirchhoff" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="results-panel-kirchhoff">
+                    <h3><i class="fas fa-list-ol"></i> Análisis Matemático</h3>
+                    <div class="equations-container">
+                        <h4>Ecuaciones del Sistema</h4>
+                        <div id="kirchhoff-equations" class="equations-box"></div>
+                    </div>
+                    <div class="solution-container">
+                        <h4>Solución</h4>
+                        <div id="kirchhoff-solution" class="solution-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Puente de Wheatstone -->
+        <section id="wheatstone" class="section hidden">
+            <div class="section-header">
+                <h2><i class="fas fa-bridge"></i> Puente de Wheatstone</h2>
+                <p>Circuito de precisión para la medición de resistencias desconocidas</p>
+            </div>
+            
+            <div class="wheatstone-container">
+                <div class="wheatstone-theory">
+                    <h3><i class="fas fa-info-circle"></i> Principio de Funcionamiento</h3>
+                    <div class="theory-content">
+                        <p>El puente de Wheatstone es un circuito utilizado para medir resistencias desconocidas con alta precisión. Se basa en el principio de equilibrio de corrientes.</p>
+                        <div class="equilibrium-condition">
+                            <h4>Condición de Equilibrio:</h4>
+                            <div class="formula-box">
+                                R<sub>x</sub> = (R<sub>2</sub> × R<sub>3</sub>) / R<sub>1</sub>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wheatstone-simulation">
+                    <h3><i class="fas fa-sitemap"></i> Simulación Interactiva</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="wheatstone-canvas" width="500" height="400"></canvas>
+                    </div>
+                    
+                    <div class="wheatstone-controls">
+                        <h4><i class="fas fa-sliders-h"></i> Valores de Resistencia</h4>
+                        <div class="resistance-grid">
+                            <div class="input-group">
+                                <label for="r1-value">R₁ (Ω):</label>
+                                <input type="number" id="r1-value" value="100" min="1" max="10000" class="modern-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="r2-value">R₂ (Ω):</label>
+                                <input type="number" id="r2-value" value="200" min="1" max="10000" class="modern-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="r3-value">R₃ (Ω):</label>
+                                <input type="number" id="r3-value" value="150" min="1" max="10000" class="modern-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="rx-value">Rx (Ω):</label>
+                                <input type="number" id="rx-value" value="300" min="1" max="10000" class="modern-input">
+                            </div>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button id="calculate-wheatstone" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i> Analizar
+                            </button>
+                            <button id="balance-wheatstone" class="btn btn-success">
+                                <i class="fas fa-balance-scale"></i> Auto-Equilibrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wheatstone-results">
+                    <h3><i class="fas fa-chart-bar"></i> Estado del Puente</h3>
+                    <div class="status-grid">
+                        <div class="status-card">
+                            <div class="status-icon" id="balance-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="status-content">
+                                <span class="status-label">Estado del Puente</span>
+                                <span class="status-value" id="bridge-status">No equilibrado</span>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card">
+                            <div class="status-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="status-content">
+                                <span class="status-label">Corriente en Galvanómetro</span>
+                                <span class="status-value" id="current-through-galvanometer">0 mA</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-results">
+                        <h4>Análisis Detallado</h4>
+                        <div id="wheatstone-solution" class="analysis-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3><i class="fas fa-university"></i> Instituto Politécnico Nacional</h3>
+                <p><i class="fas fa-graduation-cap"></i> Escuela Superior de Ingeniería Mecánica y Eléctrica</p>
+                <p><i class="fas fa-code"></i> Simulador de Circuitos Eléctricos - Proyecto Académico</p>
+            </div>
+            <div class="footer-group">
+                <div class="group-badge-footer">
+                    <span class="group-number">6IM7</span>
+                </div>
+                <p class="academic-year">Año Académico 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="calculations.js"></script>
+    <script src="components.js"></script>
+</body>
+</html>
