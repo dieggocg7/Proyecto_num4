@@ -94,7 +94,7 @@ body {
 
 .toggle-btn:hover {
   background: #1e40af;
-  transform: translateX(-50%) translateY(2px);
+  transform: translateY(2px);
 }
 
 .toggle-btn i {
@@ -102,7 +102,7 @@ body {
 }
 
 .main-header.collapsed .toggle-btn i {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 /* Header content expandido */
@@ -343,7 +343,7 @@ body {
 }
 
 .panel-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .panel-section:last-child {
@@ -525,6 +525,7 @@ body {
 }
 
 .action-buttons {
+  margin-top: 20px;
   display: flex;
   gap: 0.75rem;
 }
@@ -631,7 +632,7 @@ body {
 
 .canvas-container {
   position: relative;
-  height: 500px;
+  height: 650px;
   background: #fafafa;
   background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
   background-size: 20px 20px;
@@ -746,7 +747,7 @@ body {
 }
 
 .property-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .property-group label {
@@ -794,12 +795,13 @@ body {
 .property-actions {
   display: flex;
   gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 /* Contenedor de Resultados */
 .results-container {
   display: grid;
-  grid-template-columns: 1fr 420px;
+  grid-template-columns: 1fr 400px;
   gap: 2rem;
 }
 
@@ -1389,7 +1391,7 @@ body {
   }
 
   .results-container {
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 1fr 400px;
     gap: 1.5rem;
   }
 }
@@ -1677,6 +1679,7 @@ body {
   }
 
   .action-buttons {
+    margin-top: 20px;
     flex-direction: column;
     gap: 0.5rem;
   }
