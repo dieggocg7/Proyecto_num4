@@ -29,7 +29,7 @@
                     <h3><i class="fas fa-users"></i> Integrantes del Equipo</h3>
                     <ul class="members-list">
                         <li><i class="fas fa-user-graduate"></i> Contreras González Diego Alejandro</li>
-                        <li><i class="fas fa-user-graduate"></i> González Alvarez Ximena Marielle</li>
+                        <li><i class="fas fa-user-graduate"></i> González Álvarez Ximena Marielle</li>
                         <li><i class="fas fa-user-graduate"></i> Huitzil Cruz Omar Alejandro</li>
                         <li><i class="fas fa-user-graduate"></i> Romero Hernández Leonardo</li>
                         <li><i class="fas fa-user-graduate"></i> Romero López Víctor Tonatiuh</li>
@@ -103,14 +103,20 @@
                     
                     <div class="panel-section">
                         <h3><i class="fas fa-cogs"></i> Configuración</h3>
-                        <div class="setting-group">
-                            <label for="voltage-value">
-                                <i class="fas fa-bolt"></i> Voltaje de la Fuente
-                            </label>
-                            <div class="input-group">
-                                <input type="number" id="voltage-value" value="12" min="0" max="100" class="modern-input">
-                                <span class="input-unit">V</span>
+                        <div class="property-group">
+                            <label for="component-value"><i class="fas fa-bolt"></i> Valor del Componente:</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="component-value" value="100" min="1" max="10000">
+                                <span id="component-unit">Ω</span>
                             </div>
+                        </div>
+                        <div class="property-actions">
+                            <button id="apply-properties" class="btn btn-success">
+                                <i class="fas fa-check"></i> Aplicar
+                            </button>
+                            <button id="delete-component" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
                         </div>
                         
                         <div class="detection-panel">
@@ -148,16 +154,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="canvas-container">
+                    <div class="canvas-container" id="canvas-container">
                         <canvas id="circuit-canvas" width="800" height="500"></canvas>
-                        <div class="canvas-instructions">
+                        <div class="canvas-instructions" id="canvas-instructions">
                             <div class="instructions-content">
                                 <i class="fas fa-hand-pointer"></i>
                                 <h4>Instrucciones</h4>
                                 <p>1. Arrastra componentes desde el panel izquierdo</p>
                                 <p>2. Haz clic en un componente para editarlo</p>
-                                <p>3. Mueve componentes para cambiar la topología</p>
-                                <small>El sistema detecta automáticamente serie/paralelo</small>
+                                <p>3. Une componentes para cerrar el circuito</p>
+                                <small>El sistema detecta automáticamente serie/paralelo.<br></small>
+                                <small>Para conexiones mixtas su análisis es únicamente demostrativo (no realiza  cálculo)</small>
                             </div>
                         </div>
                     </div>
@@ -170,24 +177,10 @@
                                 <span class="info-label">Tipo:</span>
                                 <span id="component-type-display">Componente</span>
                             </div>
-                            <div class="info-item">
-                                <span class="info-label">ID:</span>
-                                <span id="component-id-display">#001</span>
-                            </div>
                         </div>
-                        <div class="property-group">
-                            <label for="component-value">Valor del Componente:</label>
-                            <div class="input-with-unit">
-                                <input type="number" id="component-value" value="100" min="1" max="10000">
-                                <span id="component-unit">Ω</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button id="apply-properties" class="btn btn-success">
-                                <i class="fas fa-check"></i> Aplicar
-                            </button>
-                            <button id="delete-component" class="btn btn-danger">
-                                <i class="fas fa-trash"></i> Eliminar
+                        <div class="action-buttons">
+                            <button id="rotate-btn" class="btn btn-primary">
+                                <i class="fas fa-rotate"></i> Rotar 90°
                             </button>
                         </div>
                     </div>
@@ -245,13 +238,8 @@
                 </div>
                 
                 <div class="diagram-panel">
-                    <h3><i class="fas fa-sitemap"></i> Diagrama Esquemático</h3>
-                    <div class="diagram-container">
-                        <canvas id="diagram-canvas" width="400" height="300"></canvas>
-                    </div>
-                    
+                    <h3><i class="fas fa-calculator"></i> Fórmulas Aplicadas</h3>
                     <div class="formula-section">
-                        <h4><i class="fas fa-calculator"></i> Fórmulas Aplicadas</h4>
                         <div class="formula-list">
                             <div class="formula-item">
                                 <strong>Ley de Ohm:</strong> V = I × R
@@ -439,7 +427,8 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="calculations.js"></script>
-    <script src="components.js"></script>
+    <script src="circuit.js"></script>
+    <!--<script src="calculations.js"></script>-->
+    <!--<script src="components.js"></script>-->
 </body>
 </html>
